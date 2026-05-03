@@ -211,8 +211,7 @@ jobs:
           done
       - name: Build Firmware
         run: |
-        sed -i 's|https://downloads.sourceforge.net/project/lzma/lzma/4.24/lzma2409.7z|https://ghproxy.net/https://github.com/rilianx/mirrors/raw/master/lzma/lzma2409.7z|g' tools/lzma/Makefile
-        
+          sed -i 's|downloads.sourceforge.net/project/lzma/lzma/4.24/lzma2409.7z|ghproxy.net/https://github.com/rilianx/mirrors/raw/master/lzma/lzma2409.7z|g' trunk/tools/lzma/Makefile
           make ${{ inputs.target }} TOOLCHAIN=${{ inputs.toolchain }}
           mkdir -p trunk/output
           base="${FIRMWARE_AUTHOR}-${{ inputs.target }}-4.4-${{ inputs.toolchain }}"

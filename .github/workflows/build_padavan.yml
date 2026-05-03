@@ -210,8 +210,13 @@ jobs:
             sed -i "s/CONFIG_FIRMWARE_INCLUDE_${m}=y/CONFIG_FIRMWARE_INCLUDE_${m}=n/" "$CONFIGFILE"
           done
       - name: Build Firmware
-        run: |
-          sed -i 's|downloads.sourceforge.net/project/lzma/lzma/4.24/lzma2409.7z|ghproxy.net/https://github.com/rilianx/mirrors/raw/master/lzma/lzma2409.7z|g' trunk/tools/lzma/Makefile
+        run: | 
+          sed -i 's|https\?://[^ ]*lzma2409\.7z|https://ghproxy.net/https://github.com/rilianx/mirrors/raw/master/lzma/lzma2409.7z|g' trunk/tools/lzma/Makefile
+          sed -i 's|www.7-zip.org/a/lzma2409.7z|ghproxy.net/https://github.com/rilianx/mirrors/raw/master/lzma/lzma2409.7z|g' trunk/tools/lzma/Makefile
+          sed -i 's|sources\.openwrt\.org|ghproxy.net/https://github.com/rilianx/mirrors/raw/master/lzma|g' trunk/tools/lzma/Makefile
+          sed -i 's|sources\.cdn\.openwrt\.org|ghproxy.net/https://github.com/rilianx/mirrors/raw/master/lzma|g' trunk/tools/lzma/Makefile
+          sed -i 's|mirror2.openwrt.org/sources|ghproxy.net/https://github.com/rilianx/mirrors/raw/master/lzma|g' trunk/tools/lzma/Makefile
+          
           make ${{ inputs.target }} TOOLCHAIN=${{ inputs.toolchain }}
           mkdir -p trunk/output
           base="${FIRMWARE_AUTHOR}-${{ inputs.target }}-4.4-${{ inputs.toolchain }}"
